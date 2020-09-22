@@ -1,6 +1,5 @@
 package com.khafonline.phoenix.webview;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 
-import com.khafonline.phoenix.MainActivity;
+import com.khafonline.phoenix.activity.MainActivity;
 
 public class MyWebChromeClient extends WebChromeClient {
     // reference to activity instance. May be unnecessary if your web chrome client is member class.

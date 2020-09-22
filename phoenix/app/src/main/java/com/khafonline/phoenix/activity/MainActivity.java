@@ -1,4 +1,4 @@
-package com.khafonline.phoenix;
+package com.khafonline.phoenix.activity;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.DownloadListener;
@@ -21,10 +20,18 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 
+import com.khafonline.phoenix.R;
+import com.khafonline.phoenix.communication.AuthApiClient;
+import com.khafonline.phoenix.communication.RetrofitClientInstance;
+import com.khafonline.phoenix.core.Constant;
 import com.khafonline.phoenix.interfaces.WebAppInterface;
-import com.khafonline.phoenix.utility.LocationFinder;
-import com.khafonline.phoenix.webview.MyWebChromeClient;
+import com.khafonline.phoenix.model.CredentialData;
+import com.khafonline.phoenix.model.LeoResponse;
 import com.khafonline.phoenix.webview.WebViewClientImpl;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,34 +59,18 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         setContentView(R.layout.activity_main);
         mWebView = findViewById(R.id.webview);
-        findViewById(R.id.get_location_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getLocation();
-            }
-        });
 
-        load("https://www.khafonline.com/phoenix_v1/");
 
-        startClinet2();
-    }
 
-    private void getLocation() {
-        LocationFinder finder;
-        double longitude = 0.0, latitude = 0.0;
-        finder = new LocationFinder(this);
-        if (finder.canGetLocation()) {
-            latitude = finder.getLatitude();
-            longitude = finder.getLongitude();
-            Toast.makeText(this, "lat-lng " + latitude + " — " + longitude, Toast.LENGTH_LONG).show();
-        } else {
-            finder.showSettingsAlert();
-        }
 
+        startClinet();
+        load(Constant.WEB_SERVER_ADDRESS+ "login/");
     }
 
 
-    private void startClinet2() {
+
+
+    private void startClinet() {
         mWebView.setDownloadListener(new DownloadListener() {
             public void onDownloadStart(String url, String userAgent,
                                         String contentDisposition, String mimetype,
@@ -142,13 +133,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void startClinet() {
-
-        MyWebChromeClient myWebChromeClient = new MyWebChromeClient();
-        WebChromeClient.FileChooserParams ssss = null;
-        myWebChromeClient.onShowFileChooser(this, mWebView, uploadMessage, ssss);
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
