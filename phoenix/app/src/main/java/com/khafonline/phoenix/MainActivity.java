@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.DownloadListener;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 
 import com.khafonline.phoenix.interfaces.WebAppInterface;
+import com.khafonline.phoenix.utility.LocationFinder;
 import com.khafonline.phoenix.webview.MyWebChromeClient;
 import com.khafonline.phoenix.webview.WebViewClientImpl;
 
@@ -41,18 +43,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_main);
 
-        mWebView = findViewById(R.id.webview);
         context = this;
+        setContentView(R.layout.activity_main);
+        mWebView = findViewById(R.id.webview);
+        findViewById(R.id.get_location_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLocation();
+            }
+        });
+
         load("https://www.khafonline.com/phoenix_v1/");
 
         startClinet2();
     }
+
+    private void getLocation() {
+        LocationFinder finder;
+        double longitude = 0.0, latitude = 0.0;
+        finder = new LocationFinder(this);
+        if (finder.canGetLocation()) {
+            latitude = finder.getLatitude();
+            longitude = finder.getLongitude();
+            Toast.makeText(this, "lat-lng " + latitude + " — " + longitude, Toast.LENGTH_LONG).show();
+        } else {
+            finder.showSettingsAlert();
+        }
+
+    }
+
 
     private void startClinet2() {
         mWebView.setDownloadListener(new DownloadListener() {

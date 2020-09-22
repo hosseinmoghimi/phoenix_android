@@ -1,6 +1,7 @@
 package com.khafonline.phoenix.utility;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -61,6 +62,7 @@ public class LocationFinder extends Service implements LocationListener {
         return null;
     }
 
+
     public Location getLocation() {
         try {
             locationManager = (LocationManager) context
@@ -86,12 +88,12 @@ public class LocationFinder extends Service implements LocationListener {
                         //                                          int[] grantResults)
                         // to handle the case where the user grants the permission. See the documentation
                         // for ActivityCompat#requestPermissions for more details.
-                        return null;
+                        locationManager.requestLocationUpdates(
+                                LocationManager.NETWORK_PROVIDER,
+                                MIN_TIME_BW_UPDATES,
+                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                     }
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER,
-                            MIN_TIME_BW_UPDATES,
-                            MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
                     // Log.e(“Network”, “Network”);
                     if (locationManager != null) {
                         location = locationManager
@@ -126,21 +128,25 @@ public class LocationFinder extends Service implements LocationListener {
         }
         return location;
     }
+
     public double getLatitude() {
         if (location != null) {
             latitude = location.getLatitude();
         }
         return latitude;
     }
+
     public double getLongitude() {
         if (location != null) {
             longitude = location.getLongitude();
         }
         return longitude;
     }
+
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
+
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setTitle("GPS settings");
