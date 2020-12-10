@@ -1,6 +1,7 @@
 package com.khafonline.phoenix.interfaces;
 
 import android.content.Context;
+import android.content.Intent;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
@@ -23,6 +24,21 @@ public class WebAppInterface {
     public String showToast(String toast) {
         Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
         return "Hiiii Hossein!!!!!!";
+    }
+
+
+
+    @JavascriptInterface
+    public void shareOnWhatsapp(String url) {
+        Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+        whatsappIntent.setType("text/plain");
+        whatsappIntent.setPackage("com.whatsapp");
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, url);
+        try {
+            mContext.startActivity(whatsappIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(mContext,"Whatsapp have not been installed.",Toast.LENGTH_LONG).show();
+        }
     }
 
 

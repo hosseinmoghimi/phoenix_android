@@ -3,6 +3,7 @@ package com.khafonline.phoenix.activity;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -21,12 +22,9 @@ import android.widget.Toast;
 
 
 import com.khafonline.phoenix.R;
-import com.khafonline.phoenix.communication.AuthApiClient;
-import com.khafonline.phoenix.communication.RetrofitClientInstance;
 import com.khafonline.phoenix.core.Constant;
+import com.khafonline.phoenix.core.Core;
 import com.khafonline.phoenix.interfaces.WebAppInterface;
-import com.khafonline.phoenix.model.CredentialData;
-import com.khafonline.phoenix.model.LeoResponse;
 import com.khafonline.phoenix.webview.WebViewClientImpl;
 
 import retrofit2.Call;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         startClinet();
-        load(Constant.WEB_SERVER_ADDRESS+ "login/");
+        load(Constant.APP_ADDRESS);
     }
 
 
@@ -91,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(i, "File Browser"), FILE_CHOOSER_RESULT_CODE);
             }
 
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && url.startsWith("whatsapp://")) {
+                    context.startActivity(
+                            new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 
             // For Lollipop 5.0+ Devices
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
