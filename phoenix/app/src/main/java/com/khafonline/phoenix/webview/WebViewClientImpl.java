@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
+import com.khafonline.phoenix.core.Constant;
 
 public class WebViewClientImpl extends WebViewClient {
 
@@ -17,7 +17,7 @@ public class WebViewClientImpl extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-        if(url.indexOf("khafonline.com") > -1 ) return false;
+        if(url.indexOf(Constant.SITE_URL) > -1 ) return false;
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         activity.startActivity(intent);

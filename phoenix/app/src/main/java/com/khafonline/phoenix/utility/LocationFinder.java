@@ -67,10 +67,10 @@ public class LocationFinder extends Service implements LocationListener {
         try {
             locationManager = (LocationManager) context
                     .getSystemService(LOCATION_SERVICE);
-// getting GPS status
+            // getting GPS status
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
-// getting network status
+            // getting network status
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
             if (!isGPSEnabled && !isNetworkEnabled) {

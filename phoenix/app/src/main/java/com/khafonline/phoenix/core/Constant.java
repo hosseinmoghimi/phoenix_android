@@ -14,6 +14,7 @@ public class Constant {
 
     public static final String RESULT_SUCCEED = "SUCCEED";
     public static final String RESULT_FAILED = "FAILED";
+    public static final String SITE_URL = "khafonline.com";
 
 
     static final boolean ARE_YOU_IN_DEBUG_MODE = true;
@@ -48,8 +49,9 @@ public class Constant {
 
     // region Server
 
-    public final static String WEB_SERVER_ADDRESS = "http://khafonline.com/phoenix_v1/";
+    public final static String WEB_SERVER_ADDRESS = "http://khafonline.com/";
     public final static String DATA_SERVER_ADDRESS = WEB_SERVER_ADDRESS;
+    public final static String APP_ADDRESS = WEB_SERVER_ADDRESS+"app/";
     public final static String IMAGE_SERVER_ADDRESS = "http://khafonline.com/media/";
     public final static String IMAGE_SERVER_ADDRESS_ROOT = "http://khafonline.com";
 //    public final static String DATA_SERVER_ADDRESS = "http://192.168.100.198:2030/";

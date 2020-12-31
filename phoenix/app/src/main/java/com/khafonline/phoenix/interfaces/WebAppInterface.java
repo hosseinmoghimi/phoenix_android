@@ -56,7 +56,7 @@ public class WebAppInterface {
         } else {
             finder.showSettingsAlert();
         }
-        return "{'latitude':0,'longitude':0}";
+        return "{'latitude':8,'longitude':16}";
     }
 
 }

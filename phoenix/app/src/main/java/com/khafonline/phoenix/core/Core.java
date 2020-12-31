@@ -3,6 +3,7 @@ package com.khafonline.phoenix.core;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +17,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Core {
-    public static void addLog(String s) {
+    public static void addLog(String message) {
+        Log.d(Constant.MY_LOG_PREFIX, message);
     }
 
     public static void isfirstRun() {
